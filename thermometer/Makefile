@@ -14,8 +14,8 @@ endif
 
 all: install clean test bin/Thermometer
 
-test: bin/conversions.spec
-	./bin/conversions.spec
+test: bin/conversions.tests
+	./bin/conversions.tests
 
 bin/Thermometer: bin bin/conversions.o
 	$(C) $(FLAGS) src/Thermometer.c bin/conversions.o -o bin/Thermometer -lwiringPi
@@ -23,11 +23,11 @@ bin/Thermometer: bin bin/conversions.o
 bin/conversions.o: bin src/conversions.c
 	$(C) $(FLAGS) src/conversions.c -c -o bin/conversions.o
 
-bin/conversions.spec.o: src/conversions.spec.c
-	$(C) $(FLAGS) src/conversions.spec.c -c -o bin/conversions.spec.o
+bin/conversions.tests.o: src/conversions.tests.c
+	$(C) $(FLAGS) src/conversions.tests.c -c -o bin/conversions.tests.o
 
-bin/conversions.spec: bin bin/conversions.o bin/conversions.spec.o
-	$(C) $(FLAGS) bin/conversions.spec.o bin/conversions.o -o bin/conversions.spec -lcheck -lm -lpthread
+bin/conversions.tests: bin bin/conversions.o bin/conversions.tests.o
+	$(C) $(FLAGS) bin/conversions.tests.o bin/conversions.o -o bin/conversions.tests -lcheck -lm -lpthread
 
 install:
 	@echo "Running on $(OS)"
