@@ -3,3 +3,5 @@ services:
   thermometer:
     build: ./thermometer
     network_mode: host
+    privileged: true
+
