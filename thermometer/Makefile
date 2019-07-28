@@ -3,15 +3,22 @@
 C := gcc
 FLAGS := -Wall
 
-bin: bin/Thermometer
+all: clean test bin/Thermometer
 
-test: bin/Thermometer.spec
+test: bin/conversions.spec
+	./bin/conversions.spec
 
-bin/Thermometer: bin
-	$(C) $(FLAGS) src/Thermometer.c -o bin/Thermometer -lwiringPi -lm
+bin/Thermometer: bin bin/conversions.o
+	$(C) $(FLAGS) src/Thermometer.c bin/conversions.o -o bin/Thermometer -lwiringPi
 
-bin/Thermometer.spec: bin
-	$(C) $(FLAGS) src/Thermometer.spec.c -o bin/Thermometer.spec
+bin/conversions.o: bin src/conversions.c
+	$(C) $(FLAGS) src/conversions.c -c -o bin/conversions.o
+
+bin/conversions.spec.o: src/conversions.spec.c
+	$(C) $(FLAGS) src/conversions.spec.c -c -o bin/conversions.spec.o
+
+bin/conversions.spec: bin bin/conversions.o bin/conversions.spec.o
+	$(C) $(FLAGS) bin/conversions.spec.o bin/conversions.o -o bin/conversions.spec -lcheck -lm -lpthread
 
 bin:
 	mkdir bin
