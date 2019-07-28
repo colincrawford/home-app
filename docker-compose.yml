@@ -2,3 +2,4 @@ version: "3"
 services:
   thermometer:
     build: ./thermometer
+    network_mode: host
