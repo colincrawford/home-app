@@ -10,10 +10,6 @@ RUN apt-get install curl build-essential -y
 
 RUN apt-get install wiringpi
 
-RUN env
-
 RUN make
-
-RUN whoami
 
 CMD ["./bin/Thermometer"]
