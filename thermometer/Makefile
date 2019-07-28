@@ -6,7 +6,7 @@ OS := $(shell uname)
 
 INSTALL := @echo "Unable to determine your OS, you need to install check for testing"
 ifeq ($(OS) , Linux)
-	INSTALL := sudo apt-get install check
+	INSTALL := @echo "You need to either install check via your package manager or install check from source and run ./configure to update your LD_LIBRARY_PATH && exit 1"
 endif
 ifeq ($(OS),Darwin)
 	INSTALL := brew install check
