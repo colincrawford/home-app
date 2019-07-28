@@ -9,7 +9,4 @@ rm check-0.12.0.tar.gz
 ./configure
 make
 make check
-sudo make install
-
-cd ../
-./configure
+make install
