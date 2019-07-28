@@ -23,5 +23,5 @@ bin/conversions.spec: bin bin/conversions.o bin/conversions.spec.o
 bin:
 	mkdir bin
 
-clean:
+clean: bin
 	rm bin/*
