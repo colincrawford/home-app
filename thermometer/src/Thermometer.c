@@ -80,6 +80,7 @@ int main(void)
 		printf(
 				"{ \"timestamp\": \"%s\", \"adcValue\": %d, \"voltage\": %.2f, \"temperatureCelsius\": %.2f, \"temperatureFahrenheit\": %.2fF }",
 				time_str, adcValue, voltage, temp.tempCelsius, temp.tempFahrenheit);
+		fflush(stdout);
 		delay(DELAY);
 	}
 	return 0;
