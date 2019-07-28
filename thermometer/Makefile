@@ -24,4 +24,4 @@ bin:
 	mkdir bin
 
 clean: bin
-	rm bin/*
+	rm -rf bin/*
