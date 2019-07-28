@@ -2,6 +2,7 @@
 #include <pcf8591.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <time.h>
 
 #include "conversions.h"
 
@@ -18,6 +19,7 @@ int main(void)
 	int adcValue;
 	float tempKelvin, tempCelsius, tempFahrenheit;
 	float voltage, resistance;
+	time_t t;
 
 	// exit when setting up the wire fails
 	if (wiringPiSetup() == -1)
@@ -30,6 +32,7 @@ int main(void)
 
 	while (true)
 	{
+		time(&t);
 		//read A0 pin
 		adcValue = analogRead(A0);
 		// calculate voltage
@@ -39,8 +42,8 @@ int main(void)
 		tempCelsius = celsius_from_kelvin(tempKelvin);
 		tempFahrenheit = fahrenheit_from_celsius(tempCelsius);
 		printf(
-				"ADC value : %d  ,\tVoltage : %.2fV, \tTemperature : %.2fC %.2fF\n",
-				adcValue, voltage, tempCelsius, tempFahrenheit);
+				"%s - ADC value : %d  ,\tVoltage : %.2fV, \tTemperature : %.2fC %.2fF\n",
+				ctime(&t), adcValue, voltage, tempCelsius, tempFahrenheit);
 		delay(DELAY);
 	}
 	return 0;
