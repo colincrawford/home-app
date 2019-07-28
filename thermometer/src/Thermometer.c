@@ -41,7 +41,7 @@ void set_current_time(char *time_str, struct tm *current_time)
 	minute = current_time->tm_min;
 	second = current_time->tm_sec;
 	memset(time_str, 0, sizeof(char) * 100);
-	sprintf(time_str, "%02d/%02d/%02d %02d:%02d:%02d", day, month, year, hour, minute, second);
+	sprintf(time_str, "%02d/%02d/%02d %02d:%02d:%02d", month, day, year, hour, minute, second);
 }
 
 int main(void)
@@ -78,7 +78,7 @@ int main(void)
 		resistance = resistance_from_voltage(voltage);
 		temperature(&temp, resistance);
 		printf(
-				"%s - ADC value : %d  ,\tVoltage : %.2fV, \tTemperature : %.2fC %.2fF\n",
+				"{ \"timestamp\": \"%s\", \"adcValue\": %d, \"voltage\": %.2f, \"temperatureCelsius\": %.2f, \"temperatureFahrenheit\": %.2fF }",
 				time_str, adcValue, voltage, temp.tempCelsius, temp.tempFahrenheit);
 		delay(DELAY);
 	}
