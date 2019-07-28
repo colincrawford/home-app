@@ -18,7 +18,7 @@ test: bin/conversions.tests
 	./bin/conversions.tests
 
 bin/Thermometer: bin bin/conversions.o
-	$(C) $(FLAGS) src/Thermometer.c bin/conversions.o -o bin/Thermometer -lwiringPi
+	$(C) $(FLAGS) src/Thermometer.c bin/conversions.o -o bin/Thermometer -lwiringPi -lm
 
 bin/conversions.o: bin src/conversions.c
 	$(C) $(FLAGS) src/conversions.c -c -o bin/conversions.o
