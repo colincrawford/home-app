@@ -78,8 +78,8 @@ int main(void)
 		resistance = resistance_from_voltage(voltage);
 		temperature(&temp, resistance);
 		printf(
-				"{ \"timestamp\": \"%s\", \"adcValue\": %d, \"voltage\": %.2f, \"temperatureCelsius\": %.2f, \"temperatureFahrenheit\": %.2f }\n",
-				time_str, adcValue, voltage, temp.tempCelsius, temp.tempFahrenheit);
+				"{ \"timestamp\": \"%s\", \"adcValue\": %d, \"resistance\": %d, \"voltage\": %.2f, \"temperatureCelsius\": %.2f, \"temperatureFahrenheit\": %.2f }\n",
+				time_str, adcValue, resistance, voltage, temp.tempCelsius, temp.tempFahrenheit);
 		fflush(stdout);
 		delay(DELAY);
 	}
