@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <time.h>
+#include <string.h>
 
 #include "conversions.h"
 #include "temperature.h"
@@ -20,6 +21,7 @@ void set_current_time(char *time_str, struct tm *current_time);
 int main(void)
 {
 	int adcValue;
+  float voltage, resistance;
 	time_t t;
 	struct tm *current_time;
 	struct temperature_t temp;
@@ -49,7 +51,7 @@ int main(void)
 		resistance = resistance_from_voltage(voltage);
 		temperature(&temp, resistance);
 		printf(
-				"{ \"timestamp\": \"%s\", \"adcValue\": %d, \"resistance\": %d, \"voltage\": %.2f, \"temperatureCelsius\": %.2f, \"temperatureFahrenheit\": %.2f }\n",
+				"{ \"timestamp\": \"%s\", \"adcValue\": %d, \"resistance\": %.2f, \"voltage\": %.2f, \"temperatureCelsius\": %.2f, \"temperatureFahrenheit\": %.2f }\n",
 				time_str, adcValue, resistance, voltage, temp.celsius, temp.fahrenheit);
 		fflush(stdout);
 		delay(DELAY);
