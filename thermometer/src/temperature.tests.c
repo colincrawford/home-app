@@ -5,10 +5,10 @@
 START_TEST(test_temperature)
 {
   float resistance, temp_celsius, temp_fahrenheit, temp_kelvin;
-  resistance = (float)11.61;
-  temp_celsius = (float)21.68;
-  temp_fahrenheit = (float)71.02;
-  temp_kelvin = (float)294.828;
+  resistance = 11.61;
+  temp_celsius = 21.68;
+  temp_fahrenheit = 71.02;
+  temp_kelvin = 294.828;
   struct temperature_t temp;
 
   temperature(&temp, resistance);
