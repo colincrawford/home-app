@@ -5,17 +5,17 @@
 START_TEST(test_temperature)
 {
   float resistance, temp_celsius, temp_fahrenheit, temp_kelvin;
-  resistance = 11.61;
-  temp_celsius = 21.68;
-  temp_fahrenheit = 71.02;
-  temp_kelvin = 294.828;
+  resistance = (float)11.61;
+  temp_celsius = (float)21.68;
+  temp_fahrenheit = (float)71.02;
+  temp_kelvin = (float)294.828;
   struct temperature_t temp;
 
   temperature(&temp, resistance);
 
-  ck_assert_float_eq(temp.kelvin, temp_kelvin);
-  ck_assert_float_eq(temp.celsius, temp_celsius);
-  ck_assert_float_eq(temp.fahrenheit, temp_fahrenheit);
+  ck_assert_float_eq_tol(temp.kelvin, temp_kelvin, 0.01);
+  ck_assert_float_eq_tol(temp.celsius, temp_celsius, 0.01);
+  ck_assert_float_eq_tol(temp.fahrenheit, temp_fahrenheit, 0.01);
 }
 END_TEST
 

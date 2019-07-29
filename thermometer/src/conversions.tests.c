@@ -9,7 +9,7 @@ START_TEST(test_voltage_from_pin)
 
   float voltage = voltage_from_pin(pinValue);
 
-  ck_assert_float_eq(expected_voltage, voltage);
+  ck_assert_float_eq_tol(expected_voltage, voltage, 0.001);
 }
 END_TEST
 
