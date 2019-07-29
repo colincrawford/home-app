@@ -13,6 +13,17 @@ START_TEST(test_voltage_from_pin)
 }
 END_TEST
 
+START_TEST(test_resistance_from_voltage)
+{
+  float voltage = 1.77;
+  float expected_resistance = 11.61;
+
+  float resistance = resistance_from_voltage(voltage);
+
+  ck_assert_float_eq_tol(expected_resistance, resistance, 0.05);
+}
+END_TEST
+
 Suite *conversions_suite(void)
 {
   Suite *s;
@@ -24,6 +35,7 @@ Suite *conversions_suite(void)
   tc_core = tcase_create("Core");
 
   tcase_add_test(tc_core, test_voltage_from_pin);
+  tcase_add_test(tc_core, test_resistance_from_voltage);
   suite_add_tcase(s, tc_core);
 
   return s;
