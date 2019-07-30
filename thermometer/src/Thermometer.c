@@ -24,7 +24,7 @@ int main(void)
   float voltage, resistance;
 	time_t t;
 	struct tm *current_time;
-	struct temperature_t temp;
+	temperature temp;
 	char time_str[100];
 
 	// exit when setting up the wire fails
@@ -49,7 +49,7 @@ int main(void)
 		// calculate voltage
 		voltage = voltage_from_pin(adcValue);
 		resistance = resistance_from_voltage(voltage);
-		temperature(&temp, resistance);
+		init_temperature(&temp, resistance);
 		printf(
 				"{ \"timestamp\": \"%s\", \"adcValue\": %d, \"resistance\": %.2f, \"voltage\": %.2f, \"temperatureCelsius\": %.2f, \"temperatureFahrenheit\": %.2f }\n",
 				time_str, adcValue, resistance, voltage, temp.celsius, temp.fahrenheit);

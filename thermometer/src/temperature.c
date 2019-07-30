@@ -1,7 +1,7 @@
 #include "temperature.h"
 #include "conversions.h"
 
-void temperature(struct temperature_t *temp, float resistance)
+void init_temperature(temperature *temp, float resistance)
 {
 	float kelvin = kelvin_temp_from_resistance(resistance);
 	float celsius = celsius_from_kelvin(kelvin);

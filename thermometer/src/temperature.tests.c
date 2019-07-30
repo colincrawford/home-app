@@ -4,14 +4,13 @@
 
 START_TEST(test_temperature)
 {
-  float resistance, temp_celsius, temp_fahrenheit, temp_kelvin;
-  resistance = 11.61;
-  temp_celsius = 21.68;
-  temp_fahrenheit = 71.02;
-  temp_kelvin = 294.828;
-  struct temperature_t temp;
+  float resistance = 11.61;
+  float temp_celsius = 21.68;
+  float temp_fahrenheit = 71.02;
+  float temp_kelvin = 294.828;
+  temperature temp;
 
-  temperature(&temp, resistance);
+  init_temperature(&temp, resistance);
 
   ck_assert_float_eq_tol(temp.kelvin, temp_kelvin, 0.01);
   ck_assert_float_eq_tol(temp.celsius, temp_celsius, 0.01);

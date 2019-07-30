@@ -1,8 +1,7 @@
-struct temperature_t
-{
+typedef struct {
 	float kelvin;
 	float celsius;
 	float fahrenheit;
-};
+} temperature;
 
-void temperature(struct temperature_t *temp, float resistance);
+void init_temperature(temperature *temp, float resistance);
