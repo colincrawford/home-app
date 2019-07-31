@@ -24,6 +24,17 @@ START_TEST(test_resistance_from_voltage)
 }
 END_TEST
 
+START_TEST(test_kelvin_temp_from_resistance)
+{
+  float resistance = 11.61;
+  float expected_temp_kelvin = 294.83;
+
+  float temp_kelvin = kelvin_temp_from_resistance(resistance);
+
+  ck_assert_float_eq_tol(expected_temp_kelvin, temp_kelvin, 0.01);
+}
+END_TEST
+
 Suite *conversions_suite(void)
 {
   Suite *s;
@@ -36,6 +47,7 @@ Suite *conversions_suite(void)
 
   tcase_add_test(tc_core, test_voltage_from_pin);
   tcase_add_test(tc_core, test_resistance_from_voltage);
+  tcase_add_test(tc_core, test_kelvin_temp_from_resistance);
   suite_add_tcase(s, tc_core);
 
   return s;
