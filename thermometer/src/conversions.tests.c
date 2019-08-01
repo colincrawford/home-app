@@ -35,6 +35,17 @@ START_TEST(test_kelvin_temp_from_resistance)
 }
 END_TEST
 
+START_TEST(test_fahrenheit_from_celsius)
+{
+  float temp_celsius = 21.68;
+  float expected_temp_fahrenheit = 71.02;
+
+  float temp_fahrenheit = fahrenheit_from_celsius(temp_celsius);
+
+  ck_assert_float_eq_tol(expected_temp_fahrenheit, temp_fahrenheit, 0.01);
+}
+END_TEST
+
 Suite *conversions_suite(void)
 {
   Suite *s;
@@ -48,6 +59,7 @@ Suite *conversions_suite(void)
   tcase_add_test(tc_core, test_voltage_from_pin);
   tcase_add_test(tc_core, test_resistance_from_voltage);
   tcase_add_test(tc_core, test_kelvin_temp_from_resistance);
+  tcase_add_test(tc_core, test_fahrenheit_from_celsius);
   suite_add_tcase(s, tc_core);
 
   return s;
