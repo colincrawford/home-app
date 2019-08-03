@@ -10,10 +10,13 @@
 
 #define address 0x48 //pcf8591 default address
 #define pinbase 64	 //any number above 64
+
 #define A0 pinbase + 0
 #define A1 pinbase + 1
 #define A2 pinbase + 2
 #define A3 pinbase + 3
+
+// delay between temperature readings
 #define DELAY 2000
 
 void set_current_time(char *time_str, struct tm *current_time);
