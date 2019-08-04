@@ -3,6 +3,15 @@
 C := gcc
 FLAGS := -Wall
 OS := $(shell uname)
+TEST_FLAGS := -lcheck -lm -lpthread
+
+SRC_DIR := ./src
+BUILD_DIR := ./bin
+
+SRCS := $(shell find $(SRC_DIR) -name *.c)
+OBJS := $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRCS))
+TEST_SRCS := $(shell find $(SRC_DIR) -name *.tests.c)
+TEST_OBJS := $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(TEST_SRCS))
 
 INSTALL := @echo "Unable to determine your OS, you need to install check for testing"
 ifeq ($(OS) , Linux)
@@ -12,32 +21,28 @@ ifeq ($(OS),Darwin)
 	INSTALL := brew install check
 endif
 
-all: install clean test bin/Thermometer
-
-test: bin/conversions.tests bin/temperature.tests
+# all: install clean test bin/Thermometer
+all:
+	echo $(TEST_OBJS)
 	./bin/conversions.tests
 	./bin/temperature.tests
 
-bin/Thermometer: bin bin/conversions.o bin/temperature.o
-	$(C) $(FLAGS) src/Thermometer.c bin/conversions.o bin/temperature.o -o bin/Thermometer -lwiringPi -lm
+$(SRC_DIR)/$(SRCS): 
 
-bin/conversions.o: bin src/conversions.c
+bin/Thermometer: bin $(OBJECTS)
+	$(C) $(FLAGS) src/Thermometer.c $(OBJECTS) -o bin/Thermometer -lwiringPi -lm
+
+bin/conversions.o: bin
 	$(C) $(FLAGS) src/conversions.c -c -o bin/conversions.o
-
-bin/conversions.tests.o: bin src/conversions.tests.c
-	$(C) $(FLAGS) src/conversions.tests.c -c -o bin/conversions.tests.o
-
-bin/conversions.tests: bin bin/conversions.o bin/conversions.tests.o
-	$(C) $(FLAGS) bin/conversions.tests.o bin/conversions.o -o bin/conversions.tests -lcheck -lm -lpthread
 
 bin/temperature.o: bin src/temperature.c
 	$(C) $(FLAGS) src/temperature.c -c -o bin/temperature.o
 
-bin/temperature.tests.o: bin src/temperature.tests.c
-	$(C) $(FLAGS) src/temperature.tests.c -c -o bin/temperature.tests.o
+bin/conversions.tests: bin bin/conversions.o
+	$(C) $(FLAGS) src/conversions.tests.c bin/conversions.o -o bin/conversions.tests $(TEST_FLAGS)
 
-bin/temperature.tests: bin bin/temperature.o bin/conversions.o bin/temperature.tests.o
-	$(C) $(FLAGS) bin/temperature.tests.o bin/temperature.o bin/conversions.o -o bin/temperature.tests -lcheck -lm -lpthread
+bin/temperature.tests: bin bin/temperature.o bin/conversions.o
+	$(C) $(FLAGS) src/temperature.tests.c bin/temperature.o bin/conversions.o -o bin/temperature.tests $(TEST_FLAGS)
 
 install:
 	@echo "Running on $(OS)"
