@@ -14,7 +14,7 @@ TARGETS += thermometer
 
 .PHONY: all clean test build
 
-all: bin test build
+all: $(BUILD_DIR) test build
 
 build: $(TARGETS)
 
