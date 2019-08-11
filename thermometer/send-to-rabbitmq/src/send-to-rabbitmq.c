@@ -7,9 +7,12 @@
 #define BUFFER_SIZE 1000
 
 void die(char *);
+void log_msg(char *);
 
 int main(int argc, char **argv)
 {
+	log_msg("Starting...");
+	
 	// rabbitmq config
 	int port = 5672;
 	char const *hostname = "localhost";
@@ -20,32 +23,41 @@ int main(int argc, char **argv)
 	char const *password = "guest";
 
 	amqp_connection_state_t conn = amqp_new_connection();
+
+	// create the amqp tcp socket
 	amqp_socket_t *socket = amqp_tcp_socket_new(conn);
 
 	if (!socket) {
 		die("creating TCP socket");
 	}
+	log_msg("TCP socket created...");
 
+	// open that socket to the rabbitmq server
 	int status = amqp_socket_open(socket, hostname, port);
 	if (status) {
 		die("opening TCP socket");
 	}
-  
+	log_msg("TCP socket connected to the rabbitmq server...");
+
+	// login to rabbitmq
 	amqp_rpc_reply_t login_reply = amqp_login(conn, vhost, 0, 131072, 0, AMQP_SASL_METHOD_PLAIN, username, password);
 
 	if (login_reply.reply_type != AMQP_RESPONSE_NORMAL) {
 		printf("server err -> %s\n", (char *)((amqp_connection_close_t *)login_reply.reply.decoded)->reply_text.bytes);
 		die("Login request returned a non normal response");
 	}
+	log_msg("Login successful");
 
+	// open a channel
         amqp_channel_open(conn, 1);
 
 	if (amqp_get_rpc_reply(conn).reply_type != AMQP_RESPONSE_NORMAL) {
 		die("Channel open request returned a non normal response");
 	}
-	
-	char message[BUFFER_SIZE];
+	log_msg("Channel opened");
 
+	// send each line of stdin as a message
+	char message[BUFFER_SIZE];
 	while (fgets(message, BUFFER_SIZE, stdin))
 	{
 		amqp_basic_properties_t props;
@@ -57,11 +69,17 @@ int main(int argc, char **argv)
 				   &props, amqp_cstring_bytes(message));
 		
 	}
-	printf("\n");
 }
 
 void die(char *message)
 {
 	printf("Died -> %s\n", message);
+	fflush(stdout);
 	exit(1);
+}
+
+void log_msg(char *message)
+{
+	printf("%s\n", message);
+	fflush(stdout);
 }
