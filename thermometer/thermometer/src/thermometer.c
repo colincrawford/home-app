@@ -24,7 +24,7 @@ void set_current_time(char *time_str, struct tm *current_time);
 int main(void)
 {
 	int adcValue;
-  float voltage, resistance;
+	float voltage, resistance;
 	time_t t;
 	struct tm *current_time;
 	temperature temp;
