@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  thermometer:
+    build:
+        context: ./thermometer
+        dockerfile: mock.Dockerfile
+    network_mode: host
+    privileged: true
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3.7.17-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
