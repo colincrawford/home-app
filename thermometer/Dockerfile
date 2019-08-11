@@ -10,6 +10,10 @@ COPY . /usr/src/myapp
 
 WORKDIR /usr/src/myapp
 
-RUN make
+RUN sh send-to-rabbitmq/download-rabbit-mq-c.sh
 
-CMD ["./bin/Thermometer"]
+RUN cd send-to-rabbitmq && make
+
+RUN cd thermometer && make
+
+ENTRYPOINT ["./run.sh"]
