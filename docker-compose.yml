@@ -5,6 +5,7 @@ services:
     build: ./thermometer
     network_mode: host
     privileged: true
+    restart: on-failure
     depends_on:
       - rabbitmq
 
