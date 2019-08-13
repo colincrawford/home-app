@@ -11,16 +11,16 @@ void log_msg(char *);
 
 int main(int argc, char **argv)
 {
-	log_msg("Starting...");
-	
 	// rabbitmq config
 	int port = 5672;
 	char const *hostname = "localhost";
 	char const *exchange = "amq.direct";
-	char const *routingkey = "some-key";
+	char const *routingkey = "temperature-reading";
 	char const *vhost = "/";
 	char const *username = "guest";
 	char const *password = "guest";
+
+	log_msg("Connecting to Rabbitmq");
 
 	amqp_connection_state_t conn = amqp_new_connection();
 
