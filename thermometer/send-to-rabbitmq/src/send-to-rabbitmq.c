@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 	// rabbitmq config
 	int port = 5672;
 	char const *hostname = "localhost";
-	char const *exchange = "amq.direct";
+	char const *exchange = "";
 	char const *routingkey = "temperature-reading";
 	char const *vhost = "/";
 	char const *username = "guest";
