@@ -15,3 +15,11 @@ services:
       - "15672:15672"
       - "5672:5672"
 
+  postgres:
+    image: postgres:11.5
+    environment:
+      - POSTGRES_USER=thermometer_readings
+      - POSTGRES_PASSWORD=thermometer_readings
+    ports:
+      - "5432:5432"
+
