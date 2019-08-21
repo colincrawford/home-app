@@ -62,7 +62,7 @@ int main(int argc, char **argv)
 	{
 		amqp_basic_properties_t props;
 		props._flags = AMQP_BASIC_CONTENT_TYPE_FLAG | AMQP_BASIC_DELIVERY_MODE_FLAG;
-		props.content_type = amqp_cstring_bytes("text/plain"); // or application/json
+		props.content_type = amqp_cstring_bytes("application/json");
 		props.delivery_mode = 2; /* persistent delivery mode */
 		amqp_basic_publish(conn, 1, amqp_cstring_bytes(exchange),
 				   amqp_cstring_bytes(routingkey), 0, 0,
