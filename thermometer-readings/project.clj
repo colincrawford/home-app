@@ -4,6 +4,7 @@
   :license {:name "MIT"}
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [http-kit "2.3.0"]
+                 [compojure "1.6.1"]
                  [com.novemberain/langohr "5.1.0"]
                  [org.clojure/java.jdbc "0.7.9"]
                  [migratus "1.2.4"]
