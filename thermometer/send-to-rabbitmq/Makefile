@@ -1,5 +1,5 @@
 CC := gcc
-C_FLAGS := -Wall -std=c17
+C_FLAGS := -Wall -std=c11
 
 SRC_DIR := src
 BUILD_DIR := bin

@@ -1,6 +1,6 @@
 CC := gcc
-C_FLAGS := -Wall -std=c17
-LD_FLAGS := lwiringPi -lm
+C_FLAGS := -Wall -std=c11
+LD_FLAGS := -lwiringPi -lm
 TEST_LD_FLAGS := -lcheck -lm -lpthread
 
 SRC_DIR := src
