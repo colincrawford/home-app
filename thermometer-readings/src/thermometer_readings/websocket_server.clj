@@ -43,7 +43,8 @@
   [& args]
   (let [connections (atom [])
         connection-handler (get-connection-handler connections)
-        message-handler (get-ws-message-handler connections)]
+        message-handler (get-ws-message-handler connections)
+        port 9090]
     (rd/connect-to-rabbitmq message-handler)
-    (println "Starting ws server...")
-    (run-server connection-handler {:port 9090})))
+    (println "Starting ws server on port " port)
+    (run-server connection-handler {:port port})))
